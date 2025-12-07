@@ -39,6 +39,13 @@ export function Navbar({ cartItemCount = 0 }: NavbarProps) {
         </Link>
 
         <div className="flex items-center gap-4">
+          <Link href="/admin">
+            <Button variant="outline" size="sm" className="hidden sm:flex">
+              <LayoutDashboard className="h-4 w-4 mr-2" />
+              Painel Admin
+            </Button>
+          </Link>
+          
           <Link href="/carrinho">
             <div>
               <Button variant="ghost" size="icon" className="relative">

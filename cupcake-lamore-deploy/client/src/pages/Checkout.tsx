@@ -30,6 +30,7 @@ export default function Checkout() {
   });
 
   const createOrderMutation = trpc.orders.create.useMutation();
+  const createAddressMutation = trpc.addresses.create.useMutation();
 
   const shippingFee = 1500;
   const total = subtotal + shippingFee;
@@ -60,13 +61,13 @@ export default function Checkout() {
 
     try {
       // Primeiro criar o endereço
-      const createAddressMutation = trpc.addresses.create.useMutation();
       const addressResult = await createAddressMutation.mutateAsync({
         ...formData,
         isDefault: false,
       });
 
-      const addressId = Number((addressResult as any).insertId);
+      // Extrair o ID do endereço criado
+      const addressId = (addressResult as any).id;
 
       // Depois criar o pedido
       const orderResult = await createOrderMutation.mutateAsync({
@@ -87,11 +88,6 @@ export default function Checkout() {
     }
   };
 
-  if (items.length === 0) {
-    setLocation("/carrinho");
-    return null;
-  }
-
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -99,6 +95,14 @@ export default function Checkout() {
       <main className="container py-8">
         <h1 className="text-3xl font-bold mb-8">Finalizar Compra</h1>
 
+        {items.length === 0 ? (
+          <Card className="max-w-2xl mx-auto">
+            <CardContent className="pt-6 text-center">
+              <p className="text-lg text-muted-foreground mb-4">Seu carrinho está vazio</p>
+              <Button onClick={() => setLocation("/")}>Voltar para Home</Button>
+            </CardContent>
+          </Card>
+        ) : (
         <form onSubmit={handleSubmit}>
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Formulário */}
@@ -291,6 +295,7 @@ export default function Checkout() {
             </div>
           </div>
         </form>
+        )}
       </main>
     </div>
   );

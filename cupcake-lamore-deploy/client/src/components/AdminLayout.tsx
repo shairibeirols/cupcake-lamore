@@ -59,24 +59,26 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
           {/* User Info */}
           <div className="border-t p-4 space-y-2">
             <div className="text-sm">
-              <p className="font-medium">{user?.name}</p>
-              <p className="text-xs text-muted-foreground">{user?.email}</p>
+              <p className="font-medium">{user?.name || "Modo Demonstração"}</p>
+              <p className="text-xs text-muted-foreground">{user?.email || "Visualização do painel admin"}</p>
             </div>
             <Link href="/">
               <Button variant="outline" size="sm" className="w-full">
                 <Home className="h-4 w-4 mr-2" />
-                Ir para Loja
+                Voltar para Loja
               </Button>
             </Link>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="w-full text-destructive hover:text-destructive"
-              onClick={handleLogout}
-            >
-              <LogOut className="h-4 w-4 mr-2" />
-              Sair
-            </Button>
+            {user && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className="w-full text-destructive hover:text-destructive"
+                onClick={handleLogout}
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Sair
+              </Button>
+            )}
           </div>
         </div>
       </aside>

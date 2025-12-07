@@ -170,7 +170,7 @@ export const appRouter = router({
         neighborhood: z.string().min(1),
         city: z.string().min(1),
         state: z.string().length(2),
-        zipCode: z.string().min(8),
+        zipCode: z.string().min(8).max(10),
         isDefault: z.boolean().default(false),
       }))
       .mutation(async ({ ctx, input }) => {
@@ -294,7 +294,7 @@ export const appRouter = router({
           status: 'pending',
         });
         
-        const orderId = Number((orderResult as any).insertId);
+        const orderId = orderResult.id;
         
         // Criar itens do pedido
         await db.createOrderItems(

@@ -211,7 +211,9 @@ export async function createAddress(data: InsertAddress) {
   }
   
   const result = await db.insert(addresses).values(data);
-  return result;
+  // Retornar o ID do endereço criado
+  // Em Drizzle com MySQL, result é um array e insertId está em result[0]
+  return { id: Number((result as any)[0].insertId) };
 }
 
 export async function updateAddress(id: number, data: Partial<InsertAddress>) {
@@ -264,7 +266,8 @@ export async function createOrder(data: InsertOrder) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   const result = await db.insert(orders).values(data);
-  return result;
+  // Retornar o ID do pedido criado
+  return { id: Number((result as any)[0].insertId) };
 }
 
 export async function updateOrderStatus(id: number, status: InsertOrder['status']) {
