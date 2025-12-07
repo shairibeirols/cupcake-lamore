@@ -1,0 +1,25 @@
+# Cupcake Lamore - Variáveis de Ambiente Necessárias
+
+## OBRIGATÓRIAS
+
+DATABASE_URL=mysql://usuario:senha@host:3306/cupcake_lamore
+JWT_SECRET=gere_com_openssl_rand_base64_32
+NODE_ENV=production
+
+## OPCIONAIS (OAuth Manus)
+
+OAUTH_SERVER_URL=https://api.manus.im
+VITE_OAUTH_PORTAL_URL=https://auth.manus.im
+VITE_APP_ID=seu_app_id
+
+## OPCIONAIS (AWS S3 para Upload de Imagens)
+
+AWS_ACCESS_KEY_ID=sua_key
+AWS_SECRET_ACCESS_KEY=sua_secret
+AWS_REGION=us-east-1
+AWS_S3_BUCKET=seu-bucket
+
+## OPCIONAIS (Personalização)
+
+VITE_APP_TITLE=Cupcake Lamore
+VITE_APP_LOGO=/logo.png
